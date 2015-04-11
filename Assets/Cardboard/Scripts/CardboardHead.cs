@@ -19,6 +19,8 @@ public class CardboardHead : MonoBehaviour {
   public bool trackRotation = true;
   public bool trackPosition = true;
 
+	public bool trackLocalSpace = true;
+
   // If set, the head transform will be relative to it.
   public Transform target;
 
@@ -28,6 +30,7 @@ public class CardboardHead : MonoBehaviour {
   // object's orientation (or a child's) in their own LateUpdate() functions,
   // e.g. to cast rays.
   public bool updateEarly = false;
+
 
   // Where is this head looking?
   public Ray Gaze {
@@ -63,9 +66,13 @@ public class CardboardHead : MonoBehaviour {
 
     if (trackRotation) {
       var rot = Cardboard.SDK.HeadRotation;
-      if (target == null) {
+      if (target == null && trackLocalSpace) {
+		
         transform.localRotation = rot;
-      } else {
+		}
+	  else if( target == null ) {
+		transform.rotation = rot;
+	   } else {
         transform.rotation = rot * target.rotation;
       }
     }
