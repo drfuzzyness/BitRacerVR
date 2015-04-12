@@ -28,6 +28,8 @@ public class LevelManager : MonoBehaviour {
 	public Text maxSpeedText;
 	public Text levelLengthText;
 
+	public AudioSource music;
+
 	public void wonLevel() {
 		Debug.Log( "Won level" );
 		PlayerPrefs.SetInt( "Score", scoreManager.score );
@@ -48,6 +50,7 @@ public class LevelManager : MonoBehaviour {
 			PlayerPrefs.SetInt( "HighScore", scoreManager.score );
 		PlayerPrefs.SetInt( "Score", scoreManager.score );
 		PlayerPrefs.SetInt( "Level", currentLevel + 1 );
+		saveMusicPos();
 		Application.LoadLevel( chooseNextLevel() );
 	}
 
@@ -67,6 +70,7 @@ public class LevelManager : MonoBehaviour {
 		if( PlayerPrefs.GetInt( "HighScore", 0 ) < scoreManager.score )
 			PlayerPrefs.SetInt( "HighScore", scoreManager.score );
 		PlayerPrefs.SetInt( "Score", 0 );
+		saveMusicPos();
 		Application.LoadLevel( 0 );
 	}
 
@@ -97,6 +101,10 @@ public class LevelManager : MonoBehaviour {
 //		while( scenes[ next ] == Application.loadedLevel )
 //			next = Random.Range( 0, scenes.Count );
 		return scenes[ next ];
+	}
+
+	void saveMusicPos () {
+		PlayerPrefs.SetInt( "MusicPos", music.timeSamples );
 	}
 	
 	// Update is called once per frame

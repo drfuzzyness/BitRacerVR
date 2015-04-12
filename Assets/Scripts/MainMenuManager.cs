@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class MainMenuManager : MonoBehaviour {
 
 	public Text highScore;
+	public AudioSource music;
 
 	// Use this for initialization
 	void Start () {
@@ -12,11 +13,15 @@ public class MainMenuManager : MonoBehaviour {
 		highScore.text = PlayerPrefs.GetInt( "HighScore", 0 ).ToString();
 		PlayerPrefs.SetInt("Level", 0 );
 		PlayerPrefs.SetInt("Score", 0 );
+		PlayerPrefs.SetFloat( "MusicPos", 0f );
+
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if( Cardboard.SDK.CardboardTriggered ) {
+			PlayerPrefs.SetInt( "MusicPos", music.timeSamples );
 			Application.LoadLevel( 1 );
 		}
 	}
