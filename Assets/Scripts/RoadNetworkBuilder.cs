@@ -38,16 +38,16 @@ public class RoadNetworkBuilder : MonoBehaviour {
 		float direct = Random.Range( 0f, totalDirect );
 		RoadSegment seg = null;
 		if        ( direct < chanceForward ) { // forward
-			Debug.Log( builder + " goes forward" );
+//			Debug.Log( builder + " goes forward" );
 			for( int i = 0; i < blockSize && builder.currentSegment != null; i++ ) {
 				seg = builder.buildRoadForward(); // generates and moves head
 			}
 		} else if ( direct < chanceForward + chanceTurn ) { // turn
 			if( turnRight() ) { // right
-				Debug.Log( builder + " turns right" );
+//				Debug.Log( builder + " turns right" );
 				seg = builder.buildRoadRight();
 			} else { // left
-				Debug.Log( builder + " turns left" );
+//				Debug.Log( builder + " turns left" );
 				seg = builder.buildRoadLeft();
 			}
 //		} else if ( direct < chanceForward + chanceTurn + chanceFork ) { // fork
@@ -66,14 +66,18 @@ public class RoadNetworkBuilder : MonoBehaviour {
 
 		if( seg != null ) {
 			builder.currentSegment = seg;
-			builder.generateCoins( Random.Range( Mathf.Min ( 0, averageCoins - 3), Mathf.Max (7, averageCoins + 3 ) ) );
+			populateTile( builder );
 		}
 		if( builder.age >= maxAge ) {
-			Debug.Log( builder + " aged out at " + builder.age );
+//			Debug.Log( builder + " aged out at " + builder.age );
 			builder.makeExit();
 			builders.Remove( builder );
 			Destroy( builder );
 		}
+	}
+
+	void populateTile(RoadBuilder builder) {
+		builder.generateCoins( Random.Range( Mathf.Min ( 0, averageCoins - 3), Mathf.Max (7, averageCoins + 3 ) ) );
 	}
 
 	RoadBuilder newBuilderFromSegment( RoadBuilder builder, RoadSegment theSeg ) {

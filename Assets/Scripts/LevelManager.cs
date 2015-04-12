@@ -74,7 +74,7 @@ public class LevelManager : MonoBehaviour {
 		scoreManager.score = PlayerPrefs.GetInt( "Score", 0 );
 		scoreManager.updateDisplays();
 		setupLevelDifficulty();
-		Debug.Log ( chooseNextLevel() + "" );
+//		Debug.Log ( chooseNextLevel() + "" );
 	}
 
 	void setupLevelDifficulty() {

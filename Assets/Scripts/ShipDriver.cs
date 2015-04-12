@@ -11,12 +11,14 @@ public class ShipDriver : MonoBehaviour {
 	public bool stopped;
 	public bool clampXRot;
 	public LevelManager levelManager;
+	public AudioSource DeathSFX;
 
 	private Rigidbody rbod;
 
 	// Use this for initialization
 	void Start () {
 		rbod = GetComponent<Rigidbody>();
+		Cardboard.SDK.Recenter();
 	}
 	
 	// Update is called once per frame
@@ -32,6 +34,7 @@ public class ShipDriver : MonoBehaviour {
 
 	void OnCollisionEnter( Collision col) {
 		Debug.Log( gameObject + " collided with " + col.collider.gameObject );
+		DeathSFX.Play();
 		levelManager.lostLevel();
 	}
 

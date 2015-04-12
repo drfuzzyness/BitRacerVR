@@ -8,6 +8,7 @@ public class MainMenuManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Cardboard.SDK.Recenter();
 		highScore.text = PlayerPrefs.GetInt( "HighScore", 0 ).ToString();
 		PlayerPrefs.SetInt("Level", 1 );
 		PlayerPrefs.SetInt("Score", 0 );
