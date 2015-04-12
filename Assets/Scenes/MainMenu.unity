@@ -233,6 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highScore: {fileID: 288044678}
+  startingLives: 3
   music: {fileID: 918214833}
 --- !u!4 &117403363
 Transform:

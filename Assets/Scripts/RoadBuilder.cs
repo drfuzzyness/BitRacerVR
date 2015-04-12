@@ -122,6 +122,13 @@ public class RoadBuilder : MonoBehaviour {
 		}
 	}
 
+	public void generateColumns( int columns = 1 ) {
+		for( int i = 0; i < columns; i++ ) {
+			int ranCol = Random.Range( 0, currentSegment.columns.Count );
+			currentSegment.columns[ ranCol ].gameObject.SetActive( true );
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 	}

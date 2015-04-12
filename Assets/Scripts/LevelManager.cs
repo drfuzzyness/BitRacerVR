@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class LevelManager : MonoBehaviour {
 
 	public int currentLevel;
+	public int lives;
 
 	public int ageAddition;
 	public float playerBaseSpeed;
@@ -14,6 +15,8 @@ public class LevelManager : MonoBehaviour {
 	public int coinsAddition;
 	public int baseMines;
 	public int minesAddition;
+	public int baseColumns;
+	public int columnsAddition;
 
 	public List<int> scenes;
 
@@ -27,6 +30,8 @@ public class LevelManager : MonoBehaviour {
 	public Text levelNumberText;
 	public Text maxSpeedText;
 	public Text levelLengthText;
+	public Text livesText;
+	private bool died;
 
 	public AudioSource music;
 
@@ -56,26 +61,42 @@ public class LevelManager : MonoBehaviour {
 
 	public void lostLevel() {
 		Debug.Log( "Lost level" );
-		PlayerPrefs.SetInt( "Score", 0 );
+
 		player.GetComponent<ShipDriver>().stopped = true;
 		levelEndText.text = "ship\ndestroy!";
 		pressButton.SetActive( true );
 		levelEndText.gameObject.SetActive( true );
-		StartCoroutine( "lostLevelScreen" );
+
+		if( !died ) // basically, don't charge the player twice for dying
+			StartCoroutine( "lostLevelScreen" );
 	}
 
 	IEnumerator lostLevelScreen() {
+		died = true;
+		lives--;
+		PlayerPrefs.SetInt( "Lives", lives );
+		livesText.text = lives.ToString();
 		while( !Cardboard.SDK.CardboardTriggered )
 			yield return null;
-		if( PlayerPrefs.GetInt( "HighScore", 0 ) < scoreManager.score )
-			PlayerPrefs.SetInt( "HighScore", scoreManager.score );
-		PlayerPrefs.SetInt( "Score", 0 );
 		saveMusicPos();
+
+		if( lives > 0 ) {
+			Application.LoadLevel( Application.loadedLevel );
+		} else {
+		PlayerPrefs.SetInt( "Score", 0 );
+		if( PlayerPrefs.GetInt( "HighScore", 0 ) < scoreManager.score ) {
+			PlayerPrefs.SetInt( "HighScore", scoreManager.score );
+		}
+		PlayerPrefs.SetInt( "Score", 0 );
+		
 		Application.LoadLevel( 0 );
+		}
 	}
 
 	// Use this for initialization
 	void Start () {
+		died = false;
+		lives = PlayerPrefs.GetInt("Lives", lives);
 		currentLevel = PlayerPrefs.GetInt("Level", 1);
 		scoreManager.score = PlayerPrefs.GetInt( "Score", 0 );
 		scoreManager.updateDisplays();
@@ -86,11 +107,14 @@ public class LevelManager : MonoBehaviour {
 	void setupLevelDifficulty() {
 		roadNetworkBuilder.maxAge = ageAddition * currentLevel;
 		roadNetworkBuilder.averageCoins = baseCoins + coinsAddition * currentLevel;
+		roadNetworkBuilder.averageMines = baseMines + minesAddition * currentLevel;
+		roadNetworkBuilder.averageColumns = baseColumns + Mathf.FloorToInt( columnsAddition * currentLevel / 1.25f );
+
 		player.GetComponent<ShipDriver>().maxForwardVelocity = playerBaseSpeed + maxSpeedAddition * currentLevel;
 		player.GetComponent<ShipDriver>().acceleration = player.GetComponent<ShipDriver>().maxForwardVelocity / 2;
-		roadNetworkBuilder.averageMines = baseMines + minesAddition * currentLevel;
 
 
+		livesText.text = lives.ToString();
 		levelNumberText.text = currentLevel.ToString();
 		levelLengthText.text = roadNetworkBuilder.maxAge.ToString();
 		maxSpeedText.text = (player.GetComponent<ShipDriver>().maxForwardVelocity * 100).ToString();

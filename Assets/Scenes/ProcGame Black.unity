@@ -276,7 +276,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 449598, guid: 85c5ef5051dde4b68ba9eb94f18e7c91, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 11486494, guid: 85c5ef5051dde4b68ba9eb94f18e7c91, type: 2}
       propertyPath: playerShipMesh
@@ -310,18 +310,26 @@ Prefab:
       propertyPath: levelLengthText
       value: 
       objectReference: {fileID: 1408010276}
+    - target: {fileID: 11486494, guid: 85c5ef5051dde4b68ba9eb94f18e7c91, type: 2}
+      propertyPath: music
+      value: 
+      objectReference: {fileID: 780490689}
     - target: {fileID: 11451530, guid: 85c5ef5051dde4b68ba9eb94f18e7c91, type: 2}
       propertyPath: scoreDisplay
       value: 
       objectReference: {fileID: 1425685722}
     - target: {fileID: 11486494, guid: 85c5ef5051dde4b68ba9eb94f18e7c91, type: 2}
-      propertyPath: playerBaseSpeed
-      value: 60
+      propertyPath: minesAddition
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11486494, guid: 85c5ef5051dde4b68ba9eb94f18e7c91, type: 2}
-      propertyPath: music
+      propertyPath: livesText
       value: 
-      objectReference: {fileID: 780490689}
+      objectReference: {fileID: 1605353037}
+    - target: {fileID: 11486494, guid: 85c5ef5051dde4b68ba9eb94f18e7c91, type: 2}
+      propertyPath: maxSpeedAddition
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 85c5ef5051dde4b68ba9eb94f18e7c91, type: 2}
   m_IsPrefabParent: 0
@@ -448,6 +456,7 @@ MonoBehaviour:
   chanceLeft: 50
   averageCoins: 5
   averageMines: 0
+  averageColumns: 0
 --- !u!4 &225777668
 Transform:
   m_ObjectHideFlags: 0
@@ -996,7 +1005,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 406300, guid: 9948f6f23ab0b4c1595588e28cd18496, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11464082, guid: 9948f6f23ab0b4c1595588e28cd18496, type: 2}
       propertyPath: levelManager
@@ -2105,6 +2114,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b2a7564e6b24b4f459696f8e12be63d0, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1605353037
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11404774, guid: 9948f6f23ab0b4c1595588e28cd18496,
+    type: 2}
+  m_PrefabInternal: {fileID: 780490688}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1648035222
 GameObject:
   m_ObjectHideFlags: 0

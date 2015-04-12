@@ -54,13 +54,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentLevel: 1
+  lives: 0
   ageAddition: 5
   playerBaseSpeed: 60
   maxSpeedAddition: 10
   baseCoins: 3
   coinsAddition: 1
   baseMines: 0
-  minesAddition: 0
+  minesAddition: 2
+  baseColumns: 0
+  columnsAddition: 1
   scenes: 010000000200000003000000
   playerShipMesh: {fileID: 0}
   player: {fileID: 0}
@@ -71,6 +74,7 @@ MonoBehaviour:
   levelNumberText: {fileID: 0}
   maxSpeedText: {fileID: 0}
   levelLengthText: {fileID: 0}
+  livesText: {fileID: 0}
   music: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:

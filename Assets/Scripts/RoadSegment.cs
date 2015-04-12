@@ -16,6 +16,7 @@ public class RoadSegment : MonoBehaviour {
 	public float size;
 	public List<Coin> coins;
 	public List<EnemyMine> enemyMines;
+	public List<Transform> columns;
 
 
 

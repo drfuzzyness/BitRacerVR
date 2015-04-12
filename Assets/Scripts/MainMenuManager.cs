@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class MainMenuManager : MonoBehaviour {
 
 	public Text highScore;
+	public int startingLives;
 	public AudioSource music;
 
 	// Use this for initialization
@@ -14,6 +15,7 @@ public class MainMenuManager : MonoBehaviour {
 		PlayerPrefs.SetInt("Level", 0 );
 		PlayerPrefs.SetInt("Score", 0 );
 		PlayerPrefs.SetFloat( "MusicPos", 0f );
+		PlayerPrefs.SetInt("Lives", startingLives );
 
 
 	}

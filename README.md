@@ -6,4 +6,16 @@ You’re a bot in a tube. You can't stop moving. Get coins. Don’t crash. Reach
 
 Put on your **Google Cardboard** and download the **latest build for Android from** [**GitHub**](https://github.com/drfuzzyness/BitRacerVR/raw/master/Builds/BitRacerVR.apk).
 
-Vote for it at on [challengePost.com](http://challengepost.com/software/bitracervr).
+Show thanks by voting for it at on [challengepost.com](http://challengepost.com/software/bitracervr).
+
+Made by [me](http://matthewconto.com) in about a day for [HackNYU 2015](http://hacknyu.org/).
+
+![](https://github.com/drfuzzyness/BitRacerVR/blob/master/Marketing/ship-destroy.gif?raw=true)
+
+
+## Credits
+- Running on Unity3D 5.0.0f4 Personal Edition
+- Certain textures edited in Photoshop
+- Used the [as3sfxr genenerator](http://www.superflashbros.net/as3sfxr/) to create SFX
+- Used [Underclocked on Resistor Anthems by Eric Skiff](http://ericskiff.com/music/) as the kickass soundtrack
+
