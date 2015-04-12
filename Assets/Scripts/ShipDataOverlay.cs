@@ -13,7 +13,7 @@ public class ShipDataOverlay : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		int velocity = Mathf.RoundToInt( GetComponent<Rigidbody>().velocity.magnitude );
+		int velocity = Mathf.RoundToInt( GetComponent<Rigidbody>().velocity.magnitude * 100 );
 		velocityText.text = velocity.ToString();
 	}
 }

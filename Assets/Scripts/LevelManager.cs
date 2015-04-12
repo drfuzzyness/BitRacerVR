@@ -40,7 +40,11 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void lostLevelScreen() {
-
+		while( !Cardboard.SDK.CardboardTriggered )
+			yield return null;
+		PlayerPrefs.SetInt( "HighScore", scoreManager.score );
+		PlayerPrefs.SetInt( "Score", 0 );
+		Application.LoadLevel( 0 );
 	}
 
 	// Use this for initialization
