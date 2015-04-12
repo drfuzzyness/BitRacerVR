@@ -12,6 +12,8 @@ public class LevelManager : MonoBehaviour {
 	public float maxSpeedAddition;
 	public int baseCoins;
 	public int coinsAddition;
+	public int baseMines;
+	public int minesAddition;
 
 	public List<int> scenes;
 
@@ -82,6 +84,9 @@ public class LevelManager : MonoBehaviour {
 		roadNetworkBuilder.averageCoins = baseCoins + coinsAddition * currentLevel;
 		player.GetComponent<ShipDriver>().maxForwardVelocity = playerBaseSpeed + maxSpeedAddition * currentLevel;
 		player.GetComponent<ShipDriver>().acceleration = player.GetComponent<ShipDriver>().maxForwardVelocity / 2;
+		roadNetworkBuilder.averageMines = baseMines + minesAddition * currentLevel;
+
+
 		levelNumberText.text = currentLevel.ToString();
 		levelLengthText.text = roadNetworkBuilder.maxAge.ToString();
 		maxSpeedText.text = (player.GetComponent<ShipDriver>().maxForwardVelocity * 100).ToString();

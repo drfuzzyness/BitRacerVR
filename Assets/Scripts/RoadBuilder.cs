@@ -107,12 +107,19 @@ public class RoadBuilder : MonoBehaviour {
 		for( int i = 0; i < numCoins; i++ ) {
 			int limiter = 0; // makes sure this doesn't run forever, if shit goes down
 			int ranCoin = Random.Range( 0, currentSegment.coins.Count );
-			while( limiter < 20 && currentSegment.coins[ ranCoin ].gameObject.activeSelf ) {
-				ranCoin = Random.Range( 0, currentSegment.coins.Count );
-			}
+//			while( limiter < 20 && currentSegment.coins[ ranCoin ].gameObject.activeSelf ) {
+//				ranCoin = Random.Range( 0, currentSegment.coins.Count );
+//			}
 			currentSegment.coins[ ranCoin ].gameObject.SetActive( true );
 		}
 
+	}
+
+	public void generateMines( int mines = 3 ) {
+		for( int i = 0; i < mines; i++ ) {
+			int ranMine = Random.Range( 0, currentSegment.enemyMines.Count );
+			currentSegment.enemyMines[ ranMine ].gameObject.SetActive( true );
+		}
 	}
 
 	// Use this for initialization

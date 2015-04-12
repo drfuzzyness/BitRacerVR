@@ -16,6 +16,7 @@ public class RoadNetworkBuilder : MonoBehaviour {
 	public float chanceRight;
 	public float chanceLeft;
 	public int averageCoins;
+	public int averageMines;
 
 
 	// Use this for initialization
@@ -77,7 +78,8 @@ public class RoadNetworkBuilder : MonoBehaviour {
 	}
 
 	void populateTile(RoadBuilder builder) {
-		builder.generateCoins( Random.Range( Mathf.Min ( 0, averageCoins - 3), Mathf.Max (7, averageCoins + 3 ) ) );
+		builder.generateCoins( Random.Range( 0, Mathf.Max (7, averageCoins + 3 ) ) );
+		builder.generateMines( Random.Range( 0, Mathf.Max (16, averageMines ) ) );
 	}
 
 	RoadBuilder newBuilderFromSegment( RoadBuilder builder, RoadSegment theSeg ) {

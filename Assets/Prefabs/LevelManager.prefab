@@ -55,11 +55,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLevel: 1
   ageAddition: 5
-  playerBaseSpeed: 80
+  playerBaseSpeed: 60
   maxSpeedAddition: 10
   baseCoins: 3
   coinsAddition: 1
-  scenes: 01000000
+  baseMines: 0
+  minesAddition: 0
+  scenes: 010000000200000003000000
   playerShipMesh: {fileID: 0}
   player: {fileID: 0}
   scoreManager: {fileID: 11451530}

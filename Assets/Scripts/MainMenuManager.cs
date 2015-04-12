@@ -10,7 +10,7 @@ public class MainMenuManager : MonoBehaviour {
 	void Start () {
 		Cardboard.SDK.Recenter();
 		highScore.text = PlayerPrefs.GetInt( "HighScore", 0 ).ToString();
-		PlayerPrefs.SetInt("Level", 1 );
+		PlayerPrefs.SetInt("Level", 0 );
 		PlayerPrefs.SetInt("Score", 0 );
 	}
 	
