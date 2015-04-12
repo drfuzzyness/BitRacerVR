@@ -22,3 +22,12 @@ Made by [me](http://matthewconto.com) in about a day for [HackNYU 2015](http://h
 - Used [Underclocked on Resistor Anthems by Eric Skiff](http://ericskiff.com/music/) as the kickass soundtrack
 
 ![](https://github.com/drfuzzyness/BitRacerVR/blob/master/Marketing/win.gif?raw=true)
+
+## What I did
+- Player controller adjusts to player looking around in Cardboard
+- Runtime level generation
+- Game elements: score, lives, game-over, menus, animations
+- (simplistic) 3D Models
+- Balances the difficulty over time to teach the player the different obstacles
+- Visual design
+- 
