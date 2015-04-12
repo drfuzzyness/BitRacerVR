@@ -1,20 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class LevelManager : MonoBehaviour {
 
 	public int currentLevel;
 
 	public int ageAddition;
+	public float playerBaseSpeed;
 	public float maxSpeedAddition;
+	public int baseCoins;
+	public int coinsAddition;
+
+	public List<int> scenes;
 
 	public Transform playerShipMesh;
 	public GameObject player;
 	public ScoreManager scoreManager;
+	public RoadNetworkBuilder roadNetworkBuilder;
 
 	public Text levelEndText;
 	public GameObject pressButton; 
+	public Text levelNumberText;
+	public Text maxSpeedText;
+	public Text levelLengthText;
 
 	public void wonLevel() {
 		Debug.Log( "Won level" );
@@ -22,11 +32,21 @@ public class LevelManager : MonoBehaviour {
 		levelEndText.text = "won\nlevel!";
 		pressButton.SetActive( true );
 		levelEndText.gameObject.SetActive( true );
-//		Application.LoadLevel( Application.loadedLevel + 1 );
+		StartCoroutine( "wonLevelScreen" );
+
 	}
 
 	IEnumerator wonLevelScreen() {
-		yield return null;
+		player.GetComponent<ShipDriver>().stopped = true;
+		while( !Cardboard.SDK.CardboardTriggered ) {
+			yield return null;
+			playerShipMesh.position += playerShipMesh.forward;
+		}
+		if( PlayerPrefs.GetInt( "HighScore", 0 ) < scoreManager.score )
+			PlayerPrefs.SetInt( "HighScore", scoreManager.score );
+		PlayerPrefs.SetInt( "Score", scoreManager.score );
+		PlayerPrefs.SetInt( "Level", currentLevel + 1 );
+		Application.LoadLevel( chooseNextLevel() );
 	}
 
 	public void lostLevel() {
@@ -39,17 +59,38 @@ public class LevelManager : MonoBehaviour {
 		StartCoroutine( "lostLevelScreen" );
 	}
 
-	public void lostLevelScreen() {
+	IEnumerator lostLevelScreen() {
 		while( !Cardboard.SDK.CardboardTriggered )
 			yield return null;
-		PlayerPrefs.SetInt( "HighScore", scoreManager.score );
+		if( PlayerPrefs.GetInt( "HighScore", 0 ) < scoreManager.score )
+			PlayerPrefs.SetInt( "HighScore", scoreManager.score );
 		PlayerPrefs.SetInt( "Score", 0 );
 		Application.LoadLevel( 0 );
 	}
 
 	// Use this for initialization
 	void Start () {
+		currentLevel = PlayerPrefs.GetInt("Level", 1);
 		scoreManager.score = PlayerPrefs.GetInt( "Score", 0 );
+		scoreManager.updateDisplays();
+		setupLevelDifficulty();
+	}
+
+	void setupLevelDifficulty() {
+		roadNetworkBuilder.maxAge = ageAddition * currentLevel;
+		roadNetworkBuilder.averageCoins = baseCoins + coinsAddition * currentLevel;
+		player.GetComponent<ShipDriver>().maxForwardVelocity = playerBaseSpeed + maxSpeedAddition * currentLevel;
+		player.GetComponent<ShipDriver>().acceleration = player.GetComponent<ShipDriver>().maxForwardVelocity / 2;
+		levelNumberText.text = currentLevel.ToString();
+		levelLengthText.text = roadNetworkBuilder.maxAge.ToString();
+		maxSpeedText.text = (player.GetComponent<ShipDriver>().maxForwardVelocity * 100).ToString();
+	}
+
+	int chooseNextLevel() {
+		int next = Random.Range( 0, scenes.Count );
+		while( scenes[ next ] == Application.loadedLevel )
+			next = Random.Range( 0, scenes.Count );
+		return scenes[ next ];
 	}
 	
 	// Update is called once per frame
