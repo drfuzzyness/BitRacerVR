@@ -74,6 +74,7 @@ public class LevelManager : MonoBehaviour {
 		scoreManager.score = PlayerPrefs.GetInt( "Score", 0 );
 		scoreManager.updateDisplays();
 		setupLevelDifficulty();
+		Debug.Log ( chooseNextLevel() + "" );
 	}
 
 	void setupLevelDifficulty() {
@@ -88,8 +89,8 @@ public class LevelManager : MonoBehaviour {
 
 	int chooseNextLevel() {
 		int next = Random.Range( 0, scenes.Count );
-		while( scenes[ next ] == Application.loadedLevel )
-			next = Random.Range( 0, scenes.Count );
+//		while( scenes[ next ] == Application.loadedLevel )
+//			next = Random.Range( 0, scenes.Count );
 		return scenes[ next ];
 	}
 	

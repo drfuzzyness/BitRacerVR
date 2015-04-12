@@ -9,7 +9,7 @@ public class MainMenuManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		highScore.text = PlayerPrefs.GetInt( "HighScore", 0 ).ToString();
-		PlayerPrefs.SetInt("Level", 0 );
+		PlayerPrefs.SetInt("Level", 1 );
 		PlayerPrefs.SetInt("Score", 0 );
 	}
 	
