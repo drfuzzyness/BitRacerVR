@@ -99,8 +99,20 @@ public class RoadBuilder : MonoBehaviour {
 
 	public void makeExit() {
 		currentSegment.sidewalkFront.gameObject.SetActive( false );
-		Instantiate( exitPrefab, currentSegment.sidewalkFront.transform.position + Vector3.up * 5f,
-		            currentSegment.sidewalkRight.transform.rotation );
+		Instantiate( exitPrefab, currentSegment.sidewalkFront.transform.position,
+		            currentSegment.transform.rotation );
+	}
+
+	public void generateCoins( int numCoins = 3 ) {
+		for( int i = 0; i < numCoins; i++ ) {
+			int limiter = 0; // makes sure this doesn't run forever, if shit goes down
+			int ranCoin = Random.Range( 0, currentSegment.coins.Count );
+			while( limiter < 20 && currentSegment.coins[ ranCoin ].gameObject.activeSelf ) {
+				ranCoin = Random.Range( 0, currentSegment.coins.Count );
+			}
+			currentSegment.coins[ ranCoin ].gameObject.SetActive( true );
+		}
+
 	}
 
 	// Use this for initialization

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
 
@@ -9,12 +10,19 @@ public class LevelManager : MonoBehaviour {
 	public float maxSpeedAddition;
 
 	public Transform playerShipMesh;
+	public GameObject player;
 	public ScoreManager scoreManager;
+
+	public Text levelEndText;
+	public GameObject pressButton; 
 
 	public void wonLevel() {
 		Debug.Log( "Won level" );
 		PlayerPrefs.SetInt( "Score", scoreManager.score );
-		Application.LoadLevel( Application.loadedLevel + 1 );
+		levelEndText.text = "won\nlevel!";
+		pressButton.SetActive( true );
+		levelEndText.gameObject.SetActive( true );
+//		Application.LoadLevel( Application.loadedLevel + 1 );
 	}
 
 	IEnumerator wonLevelScreen() {
@@ -24,6 +32,15 @@ public class LevelManager : MonoBehaviour {
 	public void lostLevel() {
 		Debug.Log( "Lost level" );
 		PlayerPrefs.SetInt( "Score", 0 );
+		player.GetComponent<ShipDriver>().stopped = true;
+		levelEndText.text = "ship\ndestroy!";
+		pressButton.SetActive( true );
+		levelEndText.gameObject.SetActive( true );
+		StartCoroutine( "lostLevelScreen" );
+	}
+
+	public void lostLevelScreen() {
+
 	}
 
 	// Use this for initialization

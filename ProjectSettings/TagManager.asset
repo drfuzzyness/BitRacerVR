@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Wall
+  - Road
+  - Blockade
+  - Coin
+  - PlayerBullet
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX

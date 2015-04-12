@@ -15,6 +15,7 @@ public class RoadNetworkBuilder : MonoBehaviour {
 	public float chanceFork;
 	public float chanceRight;
 	public float chanceLeft;
+	public int averageCoins;
 
 
 	// Use this for initialization
@@ -65,6 +66,7 @@ public class RoadNetworkBuilder : MonoBehaviour {
 
 		if( seg != null ) {
 			builder.currentSegment = seg;
+			builder.generateCoins( Random.Range( Mathf.Min ( 0, averageCoins - 3), Mathf.Max (7, averageCoins + 3 ) ) );
 		}
 		if( builder.age >= maxAge ) {
 			Debug.Log( builder + " aged out at " + builder.age );

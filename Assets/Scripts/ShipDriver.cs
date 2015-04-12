@@ -8,7 +8,9 @@ public class ShipDriver : MonoBehaviour {
 	public float currentForwardVelocity;
 	public float acceleration;
 	public float maxForwardVelocity;
-	public bool controlling;
+	public bool stopped;
+	public bool clampXRot;
+	public LevelManager levelManager;
 
 	private Rigidbody rbod;
 
@@ -19,17 +21,24 @@ public class ShipDriver : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+//		if( Cardboard.SDK.CardboardTriggered ) {
+//			if( stopped ) {
+//				stopped = false;
+//			} else {
+//				stopped = true;
+//			}
+//		}
 	}
 
-	void StepTurnLeft(float angle) {
-
+	void OnCollisionEnter( Collision col) {
+		Debug.Log( gameObject + " collided with " + col.collider.gameObject );
+		levelManager.lostLevel();
 	}
 
 	void FixedUpdate() {
 
 
-		if( rbod.velocity.magnitude < maxForwardVelocity ) {
+		if( rbod.velocity.magnitude < maxForwardVelocity && !stopped ) {
 			rbod.AddForce( transform.forward * acceleration, ForceMode.Acceleration );
 		}
 	}
@@ -42,9 +51,12 @@ public class ShipDriver : MonoBehaviour {
 		//		difference.z = difference.y / 10f;
 		//		Debug.Log ( difference );
 		
-		transform.Rotate( difference, Space.Self );
+		if( !stopped )
+			transform.Rotate( difference, Space.Self );
 		Vector3 euler = transform.eulerAngles;
-		euler.x = 0f;
-		transform.eulerAngles = euler;
+		if( clampXRot )
+			euler.x = 0f;
+		if( !stopped )
+			transform.eulerAngles = euler;
 	}
 }
