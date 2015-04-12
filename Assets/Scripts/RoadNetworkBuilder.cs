@@ -20,6 +20,9 @@ public class RoadNetworkBuilder : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		builders[0].makeBackLoop();
+		for( int i = 0; i < blockSize && builders[0].currentSegment != null; i++ ) {
+			builders[0].currentSegment = builders[0].buildRoadForward(); // generates and moves head
+		}
 	}
 	
 	// Update is called once per frame
@@ -64,6 +67,7 @@ public class RoadNetworkBuilder : MonoBehaviour {
 			builder.currentSegment = seg;
 		}
 		if( builder.age >= maxAge ) {
+			Debug.Log( builder + " aged out at " + builder.age );
 			builder.makeExit();
 			builders.Remove( builder );
 			Destroy( builder );

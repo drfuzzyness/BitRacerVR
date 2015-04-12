@@ -29,7 +29,6 @@ public class LevelManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		scoreManager.score = PlayerPrefs.GetInt( "Score", 0 );
-		Application.LoadLevel( 0 );
 	}
 	
 	// Update is called once per frame

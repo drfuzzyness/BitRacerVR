@@ -8,8 +8,10 @@ public class ExitGate : MonoBehaviour {
 
 	public List<Transform> rings;
 
-	void OnTriggerEnter() {
-		levelMan.wonLevel();
+	void OnTriggerEnter(Collider col) {
+		if( col.tag == "Player" ) {
+			levelMan.wonLevel();
+		}
 	}
 
 	// Use this for initialization
