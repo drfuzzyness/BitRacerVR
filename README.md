@@ -1,6 +1,6 @@
 BIT RACER: VR
 =============
-![](https://github.com/drfuzzyness/BitRacerVR/blob/master/Marketing/ship-destroy.gif?raw=true)
+![](https://github.com/drfuzzyness/BitRacerVR/blob/master/Marketing/menu.gif?raw=true)
 
 You’re a bot in a tube. You can't stop moving. Get coins. Don’t crash. Reach to the end of the level. Get a high score.
 
