@@ -4,7 +4,7 @@ BIT RACER: VR
 
 You’re a bot in a tube. You can't stop moving. Get coins. Don’t crash. Reach to the end of the level. Get a high score.
 
-Put on your **Google Cardboard** and download the **latest build for Android from** [**GitHub**](https://github.com/drfuzzyness/BitRacerVR/raw/master/Builds/BitRacerVR.apk).
+Put on your **Google Cardboard** and download the **latest build for Android from** [GitHub](https://github.com/drfuzzyness/BitRacerVR/releases).
 
 ![](https://github.com/drfuzzyness/BitRacerVR/blob/master/Marketing/goal.gif?raw=true)
 
@@ -22,6 +22,8 @@ Made by [me](http://matthewconto.com) in about a day for [HackNYU 2015](http://h
 - Used [Underclocked on Resistor Anthems by Eric Skiff](http://ericskiff.com/music/) as the kickass soundtrack
 
 ![](https://github.com/drfuzzyness/BitRacerVR/blob/master/Marketing/win.gif?raw=true)
+
+***\>\>\>[GitHub](https://github.com/drfuzzyness/BitRacerVR/releases)<<<***
 
 ## What I did
 - Player controller adjusts to player looking around in Cardboard
