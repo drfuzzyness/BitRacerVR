@@ -23,7 +23,7 @@ Made by [me](http://matthewconto.com) in about a day for [HackNYU 2015](http://h
 
 ![](https://github.com/drfuzzyness/BitRacerVR/blob/master/Marketing/win.gif?raw=true)
 
-***\>\>\>[GitHub](https://github.com/drfuzzyness/BitRacerVR/releases)<<<***
+***\>\>\>[Download Latest APK](https://github.com/drfuzzyness/BitRacerVR/releases)<<<***
 
 ## What I did
 - Player controller adjusts to player looking around in Cardboard
