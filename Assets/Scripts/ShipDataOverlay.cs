@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class ShipDataOverlay : MonoBehaviour {
 
 	public Text velocityText;
+	public Text rotationText;
 
 	// Use this for initialization
 	void Start () {
@@ -16,4 +17,9 @@ public class ShipDataOverlay : MonoBehaviour {
 		int velocity = Mathf.RoundToInt( GetComponent<Rigidbody>().velocity.magnitude * 100 );
 		velocityText.text = velocity.ToString();
 	}
+
+	void LateUpdate() {
+		rotationText.text = transform.localEulerAngles.ToString();
+	}
+
 }

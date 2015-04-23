@@ -13,3 +13,5 @@ EditorBuildSettings:
     path: Assets/Scenes/ProcGame Red.unity
   - enabled: 1
     path: Assets/Scenes/ProcGame Red.unity
+  - enabled: 0
+    path: Assets/Scenes/CityProcGame.unity
