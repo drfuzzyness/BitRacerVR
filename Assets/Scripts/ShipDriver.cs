@@ -13,7 +13,7 @@ public class ShipDriver : MonoBehaviour {
 	public LevelManager levelManager;
 	public AudioSource DeathSFX;
 
-//	private Quaternion previousHeadRot = new Quaternion();
+	private Quaternion previousHeadRot = new Quaternion();
 	private Rigidbody rbod;
 
 	// Use this for initialization
@@ -62,15 +62,23 @@ public class ShipDriver : MonoBehaviour {
 //		
 //			Vector3 applied = ( headRot - previousHeadRot.eulerAngles );
 //			Debug.Log( applied );
-//			Vector3.Slerp
 //			transform.Rotate( applied, Space.Self );
 //			Quaternion effrot = Cardboard.SDK.HeadRotation;
 //			effrot.y = 0f;
 //			GetComponent<Rigidbody>().MoveRotation( Quaternion.Euler( eulrot ) );
 //			transform.localEulerAngles = eulrot;
-			transform.rotation = Cardboard.SDK.HeadRotation;
+			Quaternion difference = Quaternion.Inverse( Cardboard.SDK.HeadRotation ) * previousHeadRot;
+
+			float tiltAngle = Cardboard.SDK.HeadRotation.eulerAngles.z;
+			float backAngle = Cardboard.SDK.HeadRotation.eulerAngles.x;
+
+			float headRotationInY = Cardboard.SDK.HeadRotation.eulerAngles.y;
+			Quaternion headRotationJustY = Quaternion.Euler(0, headRotationInY, 0);
+
+			transform.rotation = Cardboard.SDK.HeadRotation * Quaternion.Inverse( headRotationJustY );
 		}
 		Vector3 euler = transform.eulerAngles;
+		previousHeadRot = Cardboard.SDK.HeadRotation;
 		if( clampXRot )
 			euler.x = 0f;
 //		if( !stopped )
