@@ -6,10 +6,14 @@ public class ExitGate : MonoBehaviour {
 
 	public LevelManager levelMan;
 
+	public int points = 0;
+
 	public List<Transform> rings;
 
 	void OnTriggerEnter(Collider col) {
-		if( col.tag == "Player" ) {
+		if( col.tag == "Player" && !levelMan.player.GetComponent<ShipDriver>().stopped ) {
+			levelMan.scoreManager.score += points;
+			levelMan.scoreManager.updateDisplays();
 			levelMan.wonLevel();
 		}
 	}

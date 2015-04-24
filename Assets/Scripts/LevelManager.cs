@@ -63,7 +63,7 @@ public class LevelManager : MonoBehaviour {
 		Debug.Log( "Lost level" );
 
 		player.GetComponent<ShipDriver>().stopped = true;
-		levelEndText.text = "ship\ndestroy!";
+		levelEndText.text = "CRASHED\n-1 life!";
 		pressButton.SetActive( true );
 		levelEndText.gameObject.SetActive( true );
 
