@@ -17,14 +17,20 @@ using UnityEditor;
 using System.Collections;
 using System.Linq;
 
+/// @ingroup EditorScripts
+/// A custom editor for the StereoController script.  It exists to add the _Update
+/// Stereo Cameras_ button to the StereoController's Inspector window, and to the
+/// corresponding main menu entry and Camera context menu command.  The usage of the
+/// these actions is described in StereoController.
 [CustomEditor(typeof(StereoController))]
 public class StereoControllerEditor : Editor {
-  // Name of button, and part of "Undo ..." message.
+  /// Name of button, and part of "Undo ..." message.
   public const string ACTION_NAME = "Update Stereo Cameras";
 
   private GUIContent updateButton =
     new GUIContent(ACTION_NAME, "Copy all Camera settings to the stereo cameras.");
 
+  /// @cond HIDDEN
   public override void OnInspectorGUI() {
     DrawDefaultInspector();
     GUILayout.BeginHorizontal(GUILayout.ExpandHeight(false));
@@ -62,6 +68,7 @@ public class StereoControllerEditor : Editor {
     var camera = (Camera)command.context;
     DoUpdateStereoCameras(camera.gameObject);
   }
+  /// @endcond
 
   private static bool CanUpdateStereoCameras(GameObject go) {
     return go != null &&
@@ -104,7 +111,7 @@ public class StereoControllerEditor : Editor {
     // Head.
     var head = go.GetComponent<CardboardHead>();
     if (head != null && !hadHead) {
-        Undo.RegisterCreatedObjectUndo(head, ACTION_NAME);
+      Undo.RegisterCreatedObjectUndo(head, ACTION_NAME);
     }
 
     // Eyes. Synchronizes them with controller's camera too.

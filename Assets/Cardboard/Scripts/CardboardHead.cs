@@ -14,25 +14,60 @@
 
 using UnityEngine;
 
+/// @ingroup Scripts
+/// This script provides head tracking support for a camera.
+///
+/// Attach this script to any game object that should match the user's head motion.
+/// By default, it continuously updates the local transform to Cardboard.HeadView.
+/// A target object may be specified to provide an alternate reference frame for the motion.
+///
+/// This script will typically be attached directly to a Camera object, or to its
+/// parent if you need to offset the camera from the origin.
+/// Alternatively it can be inserted as a child of the Camera and parent of the
+/// CardboardEye camera.  Do this if you already have steering logic driving the
+/// mono Camera and wish to have the user's head motion be relative to that.  Note
+/// that in the latter setup, head tracking is visible only when VR Mode is enabled.
+///
+/// In some cases you may need two instances of CardboardHead, referring to two
+/// different targets (one of which may be the parent), in order to split where
+/// the rotation is applied from where the positional offset is applied.  Use the
+/// #trackRotation and #trackPosition properties in this case.
 public class CardboardHead : MonoBehaviour {
-  // Which types of tracking this instance will use.
+  /// Determines whether to apply the user's head rotation to this gameobject's
+  /// orientation.  True means to update the gameobject's orientation with the
+  /// user's head rotation, and false means don't modify the gameobject's orientation.
   public bool trackRotation = true;
+
+  /// Determines whether to apply ther user's head offset to this gameobject's
+  /// position.  True means to update the gameobject's position with the user's head offset,
+  /// and false means don't modify the gameobject's position.
   public bool trackPosition = true;
 
-	public bool trackLocalSpace = true;
-
-  // If set, the head transform will be relative to it.
+  /// The user's head motion will be applied in this object's reference frame
+  /// instead of the head object's parent.  A good use case is for head-based
+  /// steering.  Normally, turning the parent object (i.e. the body or vehicle)
+  /// towards the direction the user is looking would carry the head along with it,
+  /// thus creating a positive feedback loop.  Use an external target object as a
+  /// fixed point of reference for the direction the user is looking.  Often, the
+  /// grandparent or higher ancestor is a suitable target.
   public Transform target;
 
-  // Determine whether head updates early or late in frame.
-  // Defaults to false in order to reduce latency.
-  // Set this to true if you see jitter due to other scripts using this
-  // object's orientation (or a child's) in their own LateUpdate() functions,
-  // e.g. to cast rays.
+
+  /// Determines whether the head tracking is applied during `LateUpdate()` or
+  /// `Update()`.  The default is false, which means it is applied during `LateUpdate()`
+  /// to reduce latency.
+  ///
+  /// However, some scripts may need to use the camera's direction to affect the gameplay,
+  /// e.g by casting rays or steering a vehicle, during the `LateUpdate()` phase.
+  /// This can cause an annoying jitter because Unity, during this `LateUpdate()`
+  /// phase, will update the head object first on some frames but second on others.
+  /// If this is the case for your game, try switching the head to apply head tracking
+  /// during `Update()` by setting this to true.
   public bool updateEarly = false;
 
-
-  // Where is this head looking?
+  /// Returns a ray based on the heads position and forward direction, after making
+  /// sure the transform is up to date.  Use to raycast into the scene to determine
+  /// objects that the user is looking at.
   public Ray Gaze {
     get {
       UpdateHead();
@@ -60,25 +95,19 @@ public class CardboardHead : MonoBehaviour {
       return;
     }
     updated = true;
-    if (!Cardboard.SDK.UpdateState()) {
-      return;
-    }
+    Cardboard.SDK.UpdateState();
 
     if (trackRotation) {
-      var rot = Cardboard.SDK.HeadRotation;
-      if (target == null && trackLocalSpace) {
-		
+      var rot = Cardboard.SDK.HeadPose.Orientation;
+      if (target == null) {
         transform.localRotation = rot;
-		}
-	  else if( target == null ) {
-		transform.rotation = rot;
-	   } else {
-        transform.rotation = rot * target.rotation;
+      } else {
+        transform.rotation = target.rotation * rot;
       }
     }
 
     if (trackPosition) {
-      Vector3 pos = Cardboard.SDK.HeadPosition;
+      Vector3 pos = Cardboard.SDK.HeadPose.Position;
       if (target == null) {
         transform.localPosition = pos;
       } else {

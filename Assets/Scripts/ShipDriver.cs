@@ -22,16 +22,6 @@ public class ShipDriver : MonoBehaviour {
 		Cardboard.SDK.Recenter();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-//		if( Cardboard.SDK.CardboardTriggered ) {
-//			if( stopped ) {
-//				stopped = false;
-//			} else {
-//				stopped = true;
-//			}
-//		}
-	}
 
 	void OnCollisionEnter( Collision col) {
 		Debug.Log( gameObject + " collided with " + col.collider.gameObject );
@@ -67,18 +57,25 @@ public class ShipDriver : MonoBehaviour {
 //			effrot.y = 0f;
 //			GetComponent<Rigidbody>().MoveRotation( Quaternion.Euler( eulrot ) );
 //			transform.localEulerAngles = eulrot;
-			Quaternion difference = Quaternion.Inverse( Cardboard.SDK.HeadRotation ) * previousHeadRot;
 
-			float tiltAngle = Cardboard.SDK.HeadRotation.eulerAngles.z;
-			float backAngle = Cardboard.SDK.HeadRotation.eulerAngles.x;
+			// Quaternion difference = Quaternion.Inverse( Cardboard.SDK.HeadPose.Orientation ) * previousHeadRot;
+            // Debug.Log( Cardboard.SDK.HeadPose.Orientation.eulerAngles );
 
-			float headRotationInY = Cardboard.SDK.HeadRotation.eulerAngles.y;
-			Quaternion headRotationJustY = Quaternion.Euler(0, headRotationInY, 0);
+			// float tiltAngle = Cardboard.SDK.HeadPose.Orientation.eulerAngles.z;
+			// float backAngle = Cardboard.SDK.HeadPose.Orientation.eulerAngles.x;
 
-			transform.rotation = Cardboard.SDK.HeadRotation * Quaternion.Inverse( headRotationJustY );
+
+            // New code for rotation
+			// float headRotationInY = Cardboard.SDK.HeadPose.Orientation.eulerAngles.y;
+			// Quaternion headRotationJustY = Quaternion.Euler(0, headRotationInY, 0);
+
+			// transform.rotation = Cardboard.SDK.HeadPose.Orientation * Quaternion.Inverse( headRotationJustY );
+            
+            // Strange errors, just going to ignore this math for now 
+            transform.rotation = Cardboard.SDK.HeadPose.Orientation;
 		}
 		Vector3 euler = transform.eulerAngles;
-		previousHeadRot = Cardboard.SDK.HeadRotation;
+		previousHeadRot = Cardboard.SDK.HeadPose.Orientation;
 		if( clampXRot )
 			euler.x = 0f;
 //		if( !stopped )

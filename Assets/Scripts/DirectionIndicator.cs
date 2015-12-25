@@ -16,7 +16,7 @@ public class DirectionIndicator : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		Quaternion rot = Cardboard.SDK.HeadRotation;
+		Quaternion rot = Cardboard.SDK.HeadPose.Orientation;
 //		Vector3 difference = rot.eulerAngles - transform.eulerAngles;
 		//		difference.x = 0;
 		//		difference.y = Mathf.Clamp( difference.y, -angularVelocity, angularVelocity );
